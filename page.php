@@ -5,10 +5,7 @@
     <h1 class="page-band__ttl"><?php the_title(); ?></h1>
   </div>
   <div class="inner">
-    <ol class="breadcrumb">
-      <li><a href="<?php echo esc_url(home_url('/')); ?>">HOME</a></li>
-      <li><?php the_title(); ?></li>
-    </ol>
+    <?php get_template_part('parts/breadcrumb'); ?>
     <div class="content">
       <?php the_content(); ?>
     </div>
