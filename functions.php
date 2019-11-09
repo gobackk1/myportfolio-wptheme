@@ -113,3 +113,15 @@ remove_action('wp_head', 'adjacent_posts_rel_link_wp_head');
 remove_action('wp_head', 'wp_shortlink_wp_head');
 //RSSフィードを使わないなら
 remove_action('wp_head', 'feed_links_extra', 3);
+
+//functions
+
+//親固定ページあるかチェックする
+function page_has_parent(){
+  global $post;
+  if( is_page() && $post -> post_parent){
+    return $post -> post_parent;
+  } else {
+    return false;
+  }
+}
