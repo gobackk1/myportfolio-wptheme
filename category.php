@@ -9,7 +9,7 @@
     <?php if(have_posts()): while(have_posts()): the_post(); ?>
       <h2 class="title-m--cat-ttl"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
       <date class="post-date" datetime="<?php echo get_the_date(DATE_W3C); ?>"><?php echo get_the_date('Y/m/d') ?></date>
-      <?php the_content(); ?>
+      <?php the_excerpt(); ?>
     <?php endwhile; endif; ?>
     </div>
   </div>
