@@ -8,6 +8,9 @@
     <?php get_template_part('parts/breadcrumb'); ?>
     <div class="content">
       <?php the_content(); ?>
+      <?php if(is_page('sitemap')): ?>
+      <?php wp_nav_menu(array('theme_location'=>'sitemap')); ?>
+      <?php endif; ?>
     </div>
   </div>
 </main>

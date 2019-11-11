@@ -24,7 +24,7 @@ function mytheme_setup()
   ));
   register_nav_menus(array(
     'primary' => 'メイン',
-    'drawer' => 'ドロワー',
+    'sitemap' => 'サイトマップ',
     'sidebar' => 'サイドバー',
   ));
 }
@@ -88,36 +88,34 @@ function shortcode_url(){
 }
 add_shortcode('url','shortcode_url');
 
-function shortcode_info($atts){
+//特定のスラッグの最新n記事を表示するUI
+function get_lists_by_slug ($atts) {
   extract(shortcode_atts(array(
     'slug' => null,
-    'per' => 10
+    'per' => 5
   ),$atts));
 
-  global $post;
   $arg = array(
-    'posts_per_page' => $per,
     'category_name' => $slug,
-    'orderby' => 'date',
-    'order' => 'DESC',
+    'posts_per_page' => $per,
+    'order' => 'date',
+    'orderby' => 'DESC'
   );
   $posts = get_posts($arg);
+  global $post;
 
   $html = '<dl class="sc-info">';
   foreach($posts as $post): setup_postdata($post);
-    $html .= '<dt>';
-    $html .= '<time datatime="'.get_the_date(DATE_W3C).'">'.get_the_date('Y/m/d').'</time>';
-    $html .= '</dt>';
-    $html .= '<dd>';
-    $html .= '<a href="'.get_permalink().'">'.the_title('','',false).'</a>';
-    $html .= '</dd>';
+    $html .= '<dt><time datetime="'.get_the_date(DATE_W3C).'">'.get_the_date('Y/m/d').'</time></dt>';
+    $html .= '<dd><a href="'.get_permalink().'">'.the_title('','',false).'</a></dd>';
   endforeach;
   $html .= '</dl>';
 
   wp_reset_postdata();
   return $html;
+
 }
-add_shortcode('get_posts','shortcode_info');
+add_shortcode('get_posts','get_lists_by_slug');
 
 //制作時の画像パスのままCMS化できるように
 function replace_path($arg) {
